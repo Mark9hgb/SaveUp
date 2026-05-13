@@ -27,18 +27,15 @@ jobs:
 
       - name: Setup Gradle
         run: |
-          if [ ! -f gradlew ]; then
-            gradle wrapper --gradle-version 8.2
-          fi
+          gradle wrapper --gradle-version 8.2 --distribution-type bin
           chmod +x gradlew
 
-      - name: Cache grade dependencies
-
+      - name: Cache gradle dependencies
         uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
-            |/.gradle/wrapper
+            ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
